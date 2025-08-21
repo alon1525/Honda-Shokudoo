@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Japanese-inspired warm color palette */
+    --background: 35 30% 98%;
+    --foreground: 20 20% 15%;
+
+    --card: 35 20% 96%;
+    --card-foreground: 20 20% 15%;
+
+    --popover: 35 20% 96%;
+    --popover-foreground: 20 20% 15%;
+
+    /* Deep warm brown - like rich wood */
+    --primary: 25 35% 25%;
+    --primary-foreground: 35 30% 98%;
+
+    /* Warm cream */
+    --secondary: 40 25% 92%;
+    --secondary-foreground: 25 35% 25%;
+
+    /* Soft beige */
+    --muted: 35 15% 88%;
+    --muted-foreground: 20 15% 45%;
+
+    /* Warm terracotta accent */
+    --accent: 15 45% 75%;
+    --accent-foreground: 25 35% 25%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 35 30% 98%;
+
+    --border: 30 20% 85%;
+    --input: 30 20% 85%;
+    --ring: 25 35% 25%;
+
+    --radius: 0.75rem;
+
+    /* Restaurant-specific colors */
+    --japanese-red: 0 65% 45%;
+    --warm-gold: 45 80% 60%;
+    --natural-wood: 25 35% 35%;
+    --paper-cream: 40 25% 95%;
+    --charcoal: 20 20% 20%;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark mode with warm Japanese aesthetics */
+    --background: 20 25% 8%;
+    --foreground: 35 25% 92%;
+
+    --card: 20 20% 12%;
+    --card-foreground: 35 25% 92%;
+
+    --popover: 20 20% 12%;
+    --popover-foreground: 35 25% 92%;
+
+    --primary: 40 25% 85%;
+    --primary-foreground: 20 25% 8%;
+
+    --secondary: 25 25% 18%;
+    --secondary-foreground: 35 25% 92%;
+
+    --muted: 25 20% 15%;
+    --muted-foreground: 30 20% 65%;
+
+    --accent: 15 45% 60%;
+    --accent-foreground: 35 25% 92%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 35 25% 92%;
+
+    --border: 25 20% 20%;
+    --input: 25 20% 20%;
+    --ring: 40 25% 85%;
+
+    /* Dark mode restaurant colors */
+    --japanese-red: 0 65% 55%;
+    --warm-gold: 45 70% 65%;
+    --natural-wood: 25 30% 45%;
+    --paper-cream: 40 20% 90%;
+    --charcoal: 20 15% 25%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+
+  /* Japanese typography influences */
+  .font-japanese {
+    font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  }
+  
+  .font-elegant {
+    font-family: 'Playfair Display', 'Noto Serif JP', serif;
+  }
+}
+
+@layer components {
+  .hero-gradient {
+    background: linear-gradient(135deg, hsl(var(--background)), hsl(var(--paper-cream)));
+  }
+  
+  .warm-shadow {
+    box-shadow: 0 4px 20px -4px hsl(var(--natural-wood) / 0.15);
+  }
+  
+  .text-japanese-red {
+    color: hsl(var(--japanese-red));
+  }
+  
+  .text-warm-gold {
+    color: hsl(var(--warm-gold));
+  }
+  
+  .text-natural-wood {
+    color: hsl(var(--natural-wood));
+  }
+  
+  .bg-paper-cream {
+    background-color: hsl(var(--paper-cream));
+  }
+}
