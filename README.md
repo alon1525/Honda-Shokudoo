@@ -1,7 +1,6 @@
 # Honda Shokudo - Japanese Restaurant
 
 https://honda-resturant.vercel.app/
-
 A modern website for Honda Shokudo, combining Western cuisine with a Japanese soul.
 
 ## Project Structure
