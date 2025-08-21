@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-gray-200;
+  }
+
+  body {
+    @apply bg-white text-gray-900 font-sans;
+  }
+
+  /* Japanese typography influences */
+  .font-japanese {
+    font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  }
+  
+  .font-serif {
+    font-family: 'Playfair Display', 'Noto Serif JP', serif;
+  }
+}
+
+@layer components {
+  .hero-gradient {
+    background: linear-gradient(135deg, #fef2f2, #fff7ed);
+  }
+}

@@ -1,73 +1,72 @@
-# Welcome to your Lovable project
+# Honda Shokudo - Japanese Restaurant
 
-## Project info
+A modern restaurant website for Honda Shokudo, featuring Western cuisine with a Japanese soul.
 
-**URL**: https://lovable.dev/projects/395ee514-c06b-4dd7-8d0c-428732ec744d
+## Project Structure
 
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/395ee514-c06b-4dd7-8d0c-428732ec744d) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+honda-shokudo-harmony/
+├── backend/
+│   ├── package.json
+│   ├── index.js (Express server entry with nodemon support)
+│   ├── routes/
+│   └── middleware/
+├── frontend/
+│   ├── package.json
+│   ├── public/
+│   └── src/
+│       ├── components/
+│       ├── services/
+│       ├── styles/
+│       └── App.jsx
+├── .gitignore
+└── README.md
 ```
 
-**Edit a file directly in GitHub**
+## Features
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- **Multi-language Support**: English and Japanese
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Interactive Menu**: Lunch and dinner menus with seasonal items
+- **Reservation System**: Online table booking with validation
+- **Modern UI**: Clean, elegant design inspired by Japanese aesthetics
 
-**Use GitHub Codespaces**
+## Getting Started
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Backend
 
-## What technologies are used for this project?
+```bash
+cd backend
+npm install
+nodemon index.js
+```
 
-This project is built with:
+The backend will run on `http://localhost:3001`
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Frontend
 
-## How can I deploy this project?
+```bash
+cd frontend
+npm install
+npm start
+```
 
-Simply open [Lovable](https://lovable.dev/projects/395ee514-c06b-4dd7-8d0c-428732ec744d) and click on Share -> Publish.
+The frontend will run on `http://localhost:3000`
 
-## Can I connect a custom domain to my Lovable project?
+## Technologies Used
 
-Yes, you can!
+- **Backend**: Node.js, Express.js
+- **Frontend**: React, Vite, Tailwind CSS
+- **Icons**: Lucide React
+- **Language**: JavaScript (ES6+)
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Development
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- Backend runs with nodemon for auto-reloading
+- Frontend uses Vite for fast development
+- Tailwind CSS for styling
+- Responsive design for all devices
+
+## License
+
+MIT
