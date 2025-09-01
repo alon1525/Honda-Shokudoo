@@ -18,6 +18,9 @@ export const ReservationSection = () => {
   const [formStep, setFormStep] = useState(1); // 1: basic info, 2: party size, 3: seating
   const [loading, setLoading] = useState(false);
 
+  // Get backend URL from environment or use localhost for development
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001';
+
   // Check availability when date or meal type changes
   useEffect(() => {
     if (form.date && form.mealType) {
@@ -36,7 +39,7 @@ export const ReservationSection = () => {
   const checkAvailability = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:3001/api/reservations/availability/${form.date}/${form.mealType}`);
+      const response = await fetch(`${BACKEND_URL}/api/reservations/availability/${form.date}/${form.mealType}`);
       const data = await response.json();
       
       if (data.success) {
@@ -97,7 +100,7 @@ export const ReservationSection = () => {
     setMessage('');
 
     try {
-      const response = await fetch('http://localhost:3001/api/reservations', {
+      const response = await fetch(`${BACKEND_URL}/api/reservations`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -289,7 +292,7 @@ export const ReservationSection = () => {
                 <div className={`p-4 rounded-md ${
                   message.includes('Success') || message.includes('confirmed') 
                     ? 'bg-green-100 text-green-700 border border-green-200' 
-                    : 'bg-red-100 text-red-700 border border-red-200'
+                    : 'bg-red-100 text-red-700 border border-green-200'
                 }`}>
                   {message}
                 </div>
