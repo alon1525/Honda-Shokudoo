@@ -18,8 +18,27 @@ app.get('/', (req, res) => {
   res.json({ message: 'Honda Shokudo API is running' });
 });
 
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'OK', timestamp: new Date().toISOString() });
+app.get('/api/health', async (req, res) => {
+  try {
+    // Test database connection
+    const pool = require('./config/database');
+    const client = await pool.connect();
+    await client.query('SELECT NOW()');
+    client.release();
+    
+    res.json({ 
+      status: 'OK', 
+      timestamp: new Date().toISOString(),
+      database: 'Connected'
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      status: 'ERROR', 
+      timestamp: new Date().toISOString(),
+      database: 'Disconnected',
+      error: error.message
+    });
+  }
 });
 
 // Import and use reservation routes
@@ -35,10 +54,18 @@ app.use((err, req, res, next) => {
 // 404 handler
 app.use('*', (req, res) => {
   res.status(404).json({ error: 'Route not found' });
-});
+ });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`Health check: http://localhost:${PORT}/api/health`);
-  console.log(`Reservations API: http://localhost:${PORT}/api/reservations`);
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`🏥 Health check: http://localhost:${PORT}/api/health`);
+  console.log(`📅 Reservations API: http://localhost:${PORT}/api/reservations`);
+});
+
+// Graceful shutdown
+process.on('SIGINT', () => {
+  console.log('\n🛑 Shutting down gracefully...');
+  const pool = require('./config/database');
+  pool.end();
+  process.exit(0);
 });
