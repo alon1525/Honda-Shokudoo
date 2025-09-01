@@ -13,37 +13,29 @@ const ChatBot = () => {
   ]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const toggleChat = () => {
-    setIsOpen(!isOpen);
-  };
+  const handleToggle = () => setIsOpen(!isOpen);
 
-  const sendMessage = useCallback(async (userMessage) => {
-    // Add user message to conversation
-    const userMsg = { role: 'user', content: userMessage };
-    setMessages(prev => [...prev, userMsg]);
+  const handleSendMessage = useCallback(async (message) => {
+    const userMessage = { role: 'user', content: message };
+    setMessages(prev => [...prev, userMessage]);
     setIsLoading(true);
 
     try {
-      // Prepare conversation history for API
-      const conversationHistory = [...messages, userMsg];
-      
-      // Get AI response from backend
-      const aiResponse = await chatbotService.sendMessage(
+      const conversationHistory = [...messages, userMessage];
+      const response = await chatbotService.sendMessage(
         chatbotService.formatMessages(conversationHistory)
       );
 
-      // Add AI response to conversation
-      const assistantMsg = { role: 'assistant', content: aiResponse };
-      setMessages(prev => [...prev, assistantMsg]);
+      const assistantMessage = { role: 'assistant', content: response };
+      setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
-      console.error('Error getting AI response:', error);
+      console.error('Chat error:', error);
       
-      // Add error message
-      const errorMsg = {
+      const errorMessage = {
         role: 'assistant',
         content: 'Sorry, I\'m having trouble connecting right now. Please try again later or contact us directly for assistance.'
       };
-      setMessages(prev => [...prev, errorMsg]);
+      setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
@@ -51,11 +43,11 @@ const ChatBot = () => {
 
   return (
     <>
-      <ChatButton isOpen={isOpen} onToggle={toggleChat} />
+      <ChatButton isOpen={isOpen} onToggle={handleToggle} />
       <ChatWindow
         isOpen={isOpen}
         messages={messages}
-        onSendMessage={sendMessage}
+        onSendMessage={handleSendMessage}
         isLoading={isLoading}
       />
     </>

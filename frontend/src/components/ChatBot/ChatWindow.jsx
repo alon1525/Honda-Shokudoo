@@ -7,7 +7,6 @@ const ChatWindow = ({ isOpen, messages, onSendMessage, isLoading }) => {
 
   return (
     <div className="fixed bottom-20 right-6 w-80 h-96 lg:w-96 lg:h-[500px] bg-white rounded-lg shadow-xl border border-gray-200 flex flex-col z-40">
-      {/* Header */}
       <div className="bg-primary-600 text-white px-4 py-3 rounded-t-lg">
         <div className="flex items-center space-x-2">
           <div className="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
@@ -22,12 +21,10 @@ const ChatWindow = ({ isOpen, messages, onSendMessage, isLoading }) => {
         </div>
       </div>
 
-      {/* Messages */}
       <div className="flex-1 overflow-hidden">
         <MessageList messages={messages} />
       </div>
 
-      {/* Input */}
       <InputBox onSendMessage={onSendMessage} isLoading={isLoading} />
     </div>
   );

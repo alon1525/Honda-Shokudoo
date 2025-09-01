@@ -1,14 +1,14 @@
 import React from 'react';
 
 const ChatButton = ({ isOpen, onToggle }) => {
+  const buttonStyle = isOpen 
+    ? 'bg-red-600 hover:bg-red-700' 
+    : 'bg-primary-600 hover:bg-primary-700';
+
   return (
     <button
       onClick={onToggle}
-      className={`fixed bottom-6 right-6 w-14 h-14 rounded-full shadow-lg transition-all duration-300 z-50 ${
-        isOpen 
-          ? 'bg-red-600 hover:bg-red-700' 
-          : 'bg-primary-600 hover:bg-primary-700'
-      } text-white flex items-center justify-center`}
+      className={`fixed bottom-6 right-6 w-14 h-14 rounded-full shadow-lg transition-all duration-300 z-50 ${buttonStyle} text-white flex items-center justify-center`}
       aria-label="Open chat"
     >
       {isOpen ? (

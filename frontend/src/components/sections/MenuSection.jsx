@@ -112,6 +112,19 @@ export const MenuSection = () => {
 
   const currentMenu = menuData[activeMenu][language];
 
+  const MenuToggleButton = ({ menuType, label }) => (
+    <button
+      onClick={() => setActiveMenu(menuType)}
+      className={`px-8 py-3 rounded-md transition-colors ${
+        activeMenu === menuType 
+          ? 'bg-primary-600 text-white shadow-md' 
+          : 'text-wood-600 hover:bg-cream-200'
+      }`}
+    >
+      {label}
+    </button>
+  );
+
   return (
     <section id="menu" className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -120,40 +133,19 @@ export const MenuSection = () => {
             {t('menu.title')}
           </h2>
           
-          {/* Menu Toggle */}
           <div className="flex justify-center mb-8">
             <div className="bg-cream-100 p-1 rounded-lg border border-cream-200">
-              <button
-                onClick={() => setActiveMenu('lunch')}
-                className={`px-8 py-3 rounded-md transition-colors ${
-                  activeMenu === 'lunch' 
-                    ? 'bg-primary-600 text-white shadow-md' 
-                    : 'text-wood-600 hover:bg-cream-200'
-                }`}
-              >
-                {t('menu.lunch')}
-              </button>
-              <button
-                onClick={() => setActiveMenu('dinner')}
-                className={`px-8 py-3 rounded-md transition-colors ${
-                  activeMenu === 'dinner' 
-                    ? 'bg-primary-600 text-white shadow-md' 
-                    : 'text-wood-600 hover:bg-cream-200'
-                }`}
-              >
-                {t('menu.dinner')}
-              </button>
+              <MenuToggleButton menuType="lunch" label={t('menu.lunch')} />
+              <MenuToggleButton menuType="dinner" label={t('menu.dinner')} />
             </div>
           </div>
 
-          {/* Menu Hours */}
           <div className="text-center mb-12">
             <p className="text-wood-600">
               {activeMenu === 'lunch' ? t('menu.lunch.available') : t('menu.dinner.available')}
             </p>
           </div>
 
-          {/* Menu Items */}
           <div className="space-y-6">
             {currentMenu.map((item, index) => (
               <div key={index} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 border border-cream-100">

@@ -16,10 +16,9 @@ export const ReservationSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
   const [availableSeating, setAvailableSeating] = useState({});
-  const [formStep, setFormStep] = useState(1); // 1: basic info, 2: party size, 3: seating
+  const [formStep, setFormStep] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  // Check availability when date or meal type changes
   useEffect(() => {
     if (form.date && form.mealType) {
       checkAvailability();
@@ -27,7 +26,6 @@ export const ReservationSection = () => {
     }
   }, [form.date, form.mealType]);
 
-  // Check availability when party size changes
   useEffect(() => {
     if (form.partySize) {
       setFormStep(3);
@@ -55,10 +53,9 @@ export const ReservationSection = () => {
   };
 
   const getAvailablePartySizes = () => {
-    const sizes = [];
     const maxTotalSeats = Object.values(availableSeating).reduce((sum, area) => sum + area.remainingSeats, 0);
+    const sizes = [];
     
-    // Add party sizes based on available seating
     for (let i = 1; i <= Math.min(6, maxTotalSeats); i++) {
       sizes.push(i);
     }
@@ -88,7 +85,8 @@ export const ReservationSection = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (!form.name || !form.phone || !form.date || !form.mealType || !form.partySize || !form.seatingArea) {
+    const isFormComplete = form.name && form.phone && form.date && form.mealType && form.partySize && form.seatingArea;
+    if (!isFormComplete) {
       setMessage('Please fill in all required fields.');
       return;
     }
@@ -108,7 +106,6 @@ export const ReservationSection = () => {
 
       if (response.success) {
         setMessage(t('reservations.success'));
-        // Reset form
         setForm({
           name: '',
           phone: '',
