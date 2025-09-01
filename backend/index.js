@@ -1,3 +1,12 @@
+// Load environment variables first
+require('dotenv').config();
+
+// Debug: Check if environment variables are loaded
+console.log('🔧 Environment check:');
+console.log('- DATABASE_URL:', process.env.DATABASE_URL ? '✅ Set' : '❌ Missing');
+console.log('- OPENAI_API_KEY:', process.env.OPENAI_API_KEY ? '✅ Set' : '❌ Missing');
+console.log('- PORT:', process.env.PORT || '3001 (default)');
+
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -41,9 +50,12 @@ app.get('/api/health', async (req, res) => {
   }
 });
 
-// Import and use reservation routes
+// Import and use routes
 const reservationsRouter = require('./routes/reservations');
+const chatbotRouter = require('./routes/chatbot');
+
 app.use('/api/reservations', reservationsRouter);
+app.use('/api/chatbot', chatbotRouter);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -60,6 +72,7 @@ app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
   console.log(`🏥 Health check: http://localhost:${PORT}/api/health`);
   console.log(`📅 Reservations API: http://localhost:${PORT}/api/reservations`);
+  console.log(`🤖 Chatbot API: http://localhost:${PORT}/api/chatbot`);
 });
 
 // Graceful shutdown

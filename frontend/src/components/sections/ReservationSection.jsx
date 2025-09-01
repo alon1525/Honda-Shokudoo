@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext.jsx';
+import reservationService from '../../services/reservationService';
 
 export const ReservationSection = () => {
   const { t } = useLanguage();
@@ -17,9 +18,6 @@ export const ReservationSection = () => {
   const [availableSeating, setAvailableSeating] = useState({});
   const [formStep, setFormStep] = useState(1); // 1: basic info, 2: party size, 3: seating
   const [loading, setLoading] = useState(false);
-
-  // Get backend URL from environment or use localhost for development
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3001';
 
   // Check availability when date or meal type changes
   useEffect(() => {
@@ -39,8 +37,7 @@ export const ReservationSection = () => {
   const checkAvailability = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${BACKEND_URL}/api/reservations/availability/${form.date}/${form.mealType}`);
-      const data = await response.json();
+      const data = await reservationService.checkAvailability(form.date, form.mealType);
       
       if (data.success) {
         setAvailableSeating(data.availability);
@@ -100,26 +97,17 @@ export const ReservationSection = () => {
     setMessage('');
 
     try {
-      const response = await fetch(`${BACKEND_URL}/api/reservations`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          customerName: form.name,
-          phoneNumber: form.phone,
-          seatingArea: form.seatingArea,
-          mealType: form.mealType,
-          reservationDate: form.date,
-          partySize: form.partySize
-        }),
+      const response = await reservationService.createReservation({
+        customerName: form.name,
+        phoneNumber: form.phone,
+        seatingArea: form.seatingArea,
+        mealType: form.mealType,
+        reservationDate: form.date,
+        partySize: form.partySize
       });
 
-      const data = await response.json();
-      
-      if (data.success) {
+      if (response.success) {
         setMessage(t('reservations.success'));
-
         // Reset form
         setForm({
           name: '',
@@ -132,12 +120,11 @@ export const ReservationSection = () => {
         setFormStep(1);
         setAvailableSeating({});
       } else {
-        setMessage(data.error || t('reservations.error'));
+        setMessage(response.error || 'Failed to create reservation');
       }
-
     } catch (error) {
-      console.error('Reservation error:', error);
-      setMessage(t('reservations.error'));
+      console.error('Error creating reservation:', error);
+      setMessage(error.message || 'Failed to create reservation');
     } finally {
       setIsSubmitting(false);
     }
